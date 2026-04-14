@@ -230,3 +230,5 @@ A few sentences about what you learned:
 
 ## 10. Screenshot 
 ![Screenshot](Screenshot.png)
+
+<img width="2490" height="1508" alt="image" src="https://github.com/user-attachments/assets/498c2a6c-5536-4343-b9f2-c0cb6277ff72" />
