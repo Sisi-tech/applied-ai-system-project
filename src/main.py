@@ -29,7 +29,7 @@ Use this prompt for inline Copilot analysis on the top-ranked song:
     from the current weights.
 """
 
-from .recommender import load_songs, recommend_songs
+from .recommender import load_songs, recommend_songs, validate_recommendations
 
 
 def print_recommendations(profile_name: str, user_prefs: dict, songs: list) -> None:
@@ -37,6 +37,8 @@ def print_recommendations(profile_name: str, user_prefs: dict, songs: list) -> N
     print(f"Preferences: {user_prefs}\n")
 
     recommendations = recommend_songs(user_prefs, songs, k=5)
+    validation = validate_recommendations(user_prefs, recommendations)
+
     for rec in recommendations:
         song, score, explanation = rec
         print(f"Title: {song['title']}")
@@ -44,6 +46,17 @@ def print_recommendations(profile_name: str, user_prefs: dict, songs: list) -> N
         print(f"Score: {score:.2f}")
         print(f"Reasons: {explanation}")
         print("-" * 40)
+
+    print("Recommendation validation:")
+    print(f"  Top genre match: {validation['top_genre_match']}")
+    print(f"  Top mood match: {validation['top_mood_match']}")
+    print(f"  Average score: {validation['average_score']:.2f}")
+    if validation['issues']:
+        print("  Issues:")
+        for issue in validation['issues']:
+            print(f"    - {issue}")
+    else:
+        print("  No issues detected. The recommender passed basic reliability checks.")
 
 
 def main() -> None:
